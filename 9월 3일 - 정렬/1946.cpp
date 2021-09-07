@@ -27,7 +27,7 @@ int main() {
 	int n_testcase;
 	int n; //지원자의 숫자
 	int cnt; //신입사원으로 뽑힐수 있는 사람 수
-	vector <grade> grade;
+	vector <grade> grades;
 	
 	cin >> n_testcase;
 
@@ -35,17 +35,17 @@ int main() {
 
 		cin>> n;
 
-		grade.assign(n, {});
+		grades.assign(n, {});
 
 		for (int i = 0; i < n; i++) {
 
-			cin >> grade[i].doc >> grade[i].interview;
+			cin >> grades[i].doc >> grades[i].interview;
 
 		}
 
 		
 		
-		sort(grade.begin(), grade.end(),cmp);//우선 서류심사 성적을 기준으로 순위(점수)가 높은 순서대로 정렬한다
+		sort(grades.begin(), grades.end(),cmp);//우선 서류심사 성적을 기준으로 순위(점수)가 높은 순서대로 정렬한다
 
 
 
@@ -59,15 +59,15 @@ int main() {
 
 		cnt = 1;  //서류1등은 무조건 뽑히므로
 
-		int max_rank = grade[0].interview;
+		int max_rank = grades[0].interview;
 
 		for (int i = 0; i < n; i++) {
 
 		
-			if (max_rank>grade[i].interview)
+			if (max_rank>grades[i].interview)
 			{
 				//cout << grade[i].interview<< max_rank <<endl;
-				max_rank = grade[i].interview; // 면접성적의 최고순위가 갱신된다는것 = i번째 사람은 0~ i-1번째사람보다 서류순위는 떨어지지만 그들 모두보다 면접순위는 높으므로 신입사원으로 채용될 수 있다는 것.
+				max_rank = grades[i].interview; // 면접성적의 최고순위가 갱신된다는것 = i번째 사람은 0~ i-1번째사람보다 서류순위는 떨어지지만 그들 모두보다 면접순위는 높으므로 신입사원으로 채용될 수 있다는 것.
 				cnt++; 
 				
 			}

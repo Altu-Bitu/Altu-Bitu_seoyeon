@@ -25,13 +25,17 @@ int main() {
 
 	sort(v.begin(), v.end());
 
-	for (int i = 1; i <= n; i++) {
+	int keep=0;
 
-		for (int j = 0; j < i;j++) {
+	for (int i = 0 ;i < n; i++) {
 
-			sum += v[j];//+v[0] +v[0]+v[1]  +v[0]+v[1]+v[2] .... +v[0]+v[1]+v[2]... +v[n-1]
-		}
+		keep += v[i]; //+v[0] +v[0]+v[1]  +v[0]+v[1]+v[2] .... +v[0]+v[1]+v[2]... +v[n-1]
+		sum += keep;
+
+
 	}
+
+
 		
 	cout << sum;
 }
