@@ -3,40 +3,48 @@
 
 ### C++ ###
 # Prerequisites
-*.d
+.d
 
 # Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+.slo
+.lo
+.o
+.obj
 
 # Precompiled Headers
-*.gch
-*.pch
+.gch
+.pch
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+.so
+.dylib
+.dll
 
 # Fortran module files
-*.mod
-*.smod
+.mod
+.smod
 
 # Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+.lai
+.la
+.a
+.lib
 
 # Executables
-*.exe
-*.out
-*.app
+.exe
+.out
+.app
 
-*.sln
-*.vcxproj
-*.vcxproj.filters
+.sln
+.vcxproj
+.vcxproj.filters
+.json
+.suo
+.db
+.sqlite
 
-# End of https://www.toptal.com/developers/gitignore/api/c++
+.vs/slnx.sqlite
+.vs/Altu-Bitu_seoyeon/v16/.suo
+.vs/Altu-Bitu_seoyeon/v16/Browse.VC.db
+.vs/ProjectSettings.json
+.vs/VSWorkspaceState.json
