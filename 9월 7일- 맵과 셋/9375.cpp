@@ -12,7 +12,7 @@ int main() {
 
 	//어떤 옷을 입을지 알 필요는 없다. 부위의 종류와 각각의 부위에 해당하는 옷의 수가 몇개인지만 알면 된다.
 
-	map <string, int> m; // 부위의 종류, 부위의 수.
+	
 
 
 	cin >> n_testcase;
@@ -20,7 +20,7 @@ int main() {
 	while (n_testcase--)
 	{
 
-		m.clear(); //모든 원소 제거
+		map <string, int> m; // 부위의 종류, 부위의 수.
 
 		int n; //가진 의상의 수
 		cin >> n;
@@ -32,11 +32,8 @@ int main() {
 			
 			cin >> wear >> part;
 			
-			if (m.find(part) == m.end())//새로운 부위라면
-				m[part] = 1; // 부위 갯수를 1로 초기화
-			
-			else //이미 저장된 부위라면
-			m[part] += 1; //갯수를 하나 늘린다.
+		
+			m[part] ++; //갯수를 하나 늘린다.
 
 		}
 	

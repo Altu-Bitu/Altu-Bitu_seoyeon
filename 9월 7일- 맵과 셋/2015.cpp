@@ -1,65 +1,60 @@
 #include <iostream>
 #include <vector> 
+#include <map> 
 
 
-//asdfasdf
+
 using namespace std;
 
 int main() {
 
-	int N, K;
+	int n;
+	long k;
+	
+	
 
+	vector <int> sum; //누적합
+	map <int, int> m; // 누적합, 누적합이 나온 횟수
 
-	vector <int> v; 
+	cin >> n>> k;
 
-	int sum=0;
+	long long temp = 0;
 
-	cin >> N >> K;
-
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < n; i++) {
 		
-		int k;
-		cin >> k;
-		v.push_back(k); //i번째까지의 누적합을 i번째 요소에 저장.
+		int a;
+		cin >> a;
+		temp += a;
 
-		//cin >> v[i]; -> 이렇게 입력받으면 공간이 할당되지 않은 상태이므로 오류남!!
+		sum.push_back(temp); //i번째까지의 누적합을 i번째 요소에 저장.
+
+	}
+
+	long long cnt = 0; //cnt 는 최대  약 200,000 * 200,000 정도
+	
+
+	//i를 고정시켜놓고,  k = sum[i] - sum[x] 를 만족하는 sum[x]의 경우의 수를 구하자.
+	// 이때, x도 같이 돌면서 확인작업을 거치면 o(n^2) 이어서 시간초과가 나온다.
+	// 따라서 sum[x] = sum[i]-k 를 만족시키는 누적합 sum[x] 가 나온 횟수를 알기 위해서 map을 하나 만들어 저장시켜둔다.
+
+	for (int i = 0; i < n; i++) {
+
+		if (sum[i] == k) //i번째까지의 부분합이 k 자체라면
+			cnt++; 
+
+		cnt += m[sum[i] - k]; //sum[i] - x = k 를 만족하는 x의 경우의수는 m[sum[i]- k] 와 같다.
+
+		m[sum[i]]++;
 
 
 	}
 
+	/* map확인용
+	for (auto iter : m) {
 
+		cout << iter.first << iter.second << '\n';
+	}*/
 	
-	//v[0] + v[1] +v[2]...v[n-1]
-	// v[1] + v[2] ...v[n-1]
-	//  ..
-	// v[n-2] + v[n-1] 
-
-	// 방법 1
-	// 바깥포문 -> i를 포함해서 만들 수 있는 부분합.
-	// 안쪽포문 -> j가 i+1 ~ N 까지 돌면서 수를 더해감. 이때  값을 하나 더할때마다 K가 되는지 확인하고 맞다면 cnt++
-
-	int sum; //부분합을 저장해놓을 공간
-	int cnt = 0; //부분합의 갯수
-
-	for (int i = 0; i < N; i++) {
-
-		sum = 0; // 부분합 초기화 
-
-		for (int j = i; j < N; j++) {
-
-			sum += v[j];
-			if (sum == K)
-				cnt++;
-
-
-		}
-	}
-
-	//하지만 배열에 값을 저장하고 지정된 인덱스부터 하나씩 더해가는 방식은 최악의 경우O(n ^ 2)의 시간복잡도를 갖기 때문에 입력의범위가 클 때 사용할 수 없다.
-	// N이 최대 200,000이므로 O(N)안으로 끝내야한다.
-	// 힌트-> 부분합 공식 활용해서 나중에 다시 풀기. 
-	
-
 
 	cout << cnt;
 
