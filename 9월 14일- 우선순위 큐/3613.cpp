@@ -8,19 +8,15 @@ using namespace std;
 const string ERROR = "Error!";
 
 //인수로 받은 문자열이 Java 형식의 변수명인지 판단하는 함수
-bool is_java(string str) { 	//str은 _가 없는 상태
+bool isJava(string str) { 	//str은 _가 없는 상태
 	
 
-	if (isupper(str[0])) // 첫글자가 대문자라면
-		return false;// java식 이름짓기에서는 첫글자가 대문자일수 없으므로 오류.
-
-	else
-	return true;
+	return !isupper(str[0]);
 
 }
 
 //인수로 받은 문자열이 C++ 형식의 변수명인지 판단하는 함수
-bool is_cpp(string str) {
+bool isCpp(string str) {
 
 	// cpp예외처리  
 
@@ -48,7 +44,7 @@ bool is_cpp(string str) {
 
 
 
-string java_to_cpp(string str) { 
+string javaToCpp(string str) { 
 
 	for (int i = 1; i < str.length(); i++) {
 
@@ -64,7 +60,7 @@ string java_to_cpp(string str) {
 	return str;
 }
 
-string cpp_to_java(string str) {
+string cppToJava(string str) {
 
 	for (int i = 0; i< str.length(); i++) {
 
@@ -98,8 +94,8 @@ int main() {
 
 			
 			//str은 java형태로 인식될수없으니 cpp형식으로 쓰여졌는지 확인과정을 거친다. 
-			if (is_cpp(str)) //cpp로 제대로 쓰여진게 맞다면
-				cout << cpp_to_java(str); //cpp ->java
+			if (isCpp(str)) //cpp로 제대로 쓰여진게 맞다면
+				cout << cppToJava(str); //cpp ->java
 
 			else
 				cout << ERROR ;
@@ -110,8 +106,8 @@ int main() {
 
 			
 			//str은 cpp형태로 인식될수없으니 java형식으로 쓰여졌는지 확인과정을 거친다.  
-			if (is_java(str)) //java로 제대로 쓰여진게 맞다면
-				cout << java_to_cpp(str) ; // java -> cpp
+			if (isJava(str)) //java로 제대로 쓰여진게 맞다면
+				cout << javaToCpp(str) ; // java -> cpp
 
 			else
 				cout << ERROR;
