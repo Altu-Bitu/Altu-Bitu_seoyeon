@@ -12,6 +12,35 @@ char password[MAX]; // 암호
 
 //길이가 L인 모든 중복 x 오름차순 조합을 구하고 , 조건에 맞는지 확인하고 출력한다.
 
+
+bool isPromising() {
+
+
+
+	int consonant = 0; //자음개수
+	int vowel = 0; //모음개수
+
+
+	//만들어진 비밀번호의 자음,모음개수 확인
+	for (int i = 0; i < L; i++) {
+
+		if (password[i] == 'a' || password[i] == 'e' || password[i] == 'i' || password[i] == 'o' || password[i] == 'u')
+			vowel++;
+
+		consonant = L - vowel;
+	}
+
+	
+	//최소모음 한개, 최소 두개 자음을 포함하고 있다면 
+	if ((consonant >= 2) && (vowel >= 1))
+
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void findPassword(int cnt, int start) { //cnt는 비밀번호 인덱스, start는 오름차순 구현을 위한 시작 인덱스
 
 
@@ -19,30 +48,15 @@ void findPassword(int cnt, int start) { //cnt는 비밀번호 인덱스, start�
 	if (cnt == L) //비밀번호의 길이가 L이 되면,
 	{
 
-		int consonant = 0; //자음개수
-		int vowel = 0; //모음개수
+		if (isPromising()) { //비밀번호가 유효할 경우에만
 
-
-		//만들어진 비밀번호의 자음,모음개수 확인
-		for (int i = 0; i < L; i++) {
-
-			if (password[i] == 'a' || password[i] == 'e' || password[i] == 'i' || password[i] == 'o' || password[i] == 'u')
-				vowel++;
-
-			consonant = L - vowel;
-		}
-
-		//cout << vowel << ' ' << consonant<<' ';
-		//최소모음 한개, 최소 두개 자음을 포함하고 있다면 출력
-		if ((consonant >= 2) && (vowel >= 1))
-
-		{
 			for (int i = 0; i < L; i++) {
 
 				cout << password[i];
 			}
 			cout << '\n';
 		}
+
 		return;
 	}
 

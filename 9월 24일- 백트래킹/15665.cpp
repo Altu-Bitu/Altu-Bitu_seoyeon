@@ -1,15 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <set>
 
 
 using namespace std;
 
 const int SIZE = 7;
 
-int n, m; 
+int n, m;
 int sequence[SIZE]; //수열
-vector<int> num; //주어진 수를 중복하지 않고 오름차순으로 저장할 수열
+set<int> s; //주어진 수를 중복하지 않고 오름차순으로 저장할 컨테이너
 
 
 //재귀함수로 구현한 백트래킹
@@ -22,12 +23,13 @@ void backtracking(int cnt) {
         cout << '\n';
         return;
     }
-    for (int i = 0; i <num.size(); i++) {
-      
-        sequence[cnt] = num[i]; //수열 저장
-            
-            backtracking(cnt + 1); //호출
-        
+
+    for (int iter: s) {
+
+        sequence[cnt] = iter; //수열 저장
+
+        backtracking(cnt + 1); //호출
+
     }
 }
 
@@ -39,14 +41,13 @@ int main() {
 
         int t;
         cin >> t;
-        num.push_back(t);
-        
+        s.insert(t);
+
     }
-   
-    sort(num.begin(), num.end()); // 오름차순 정렬
-    num.erase(unique(num.begin(), num.end()), num.end()); //중복원소를 vector의 제일 뒷부분으로 보낸다음 쓰레기 값 삭제.
-  
-   
+
+
+
+
     backtracking(0);
 
 
