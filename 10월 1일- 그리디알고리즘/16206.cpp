@@ -33,9 +33,9 @@ int main() {
 		cin >> cake[i];
 
 	}
-	/*
-	sort(cake.begin(), cake.end(), cmp);
 	
+	sort(cake.begin(), cake.end(), cmp);
+	/*
 		for (int i = 0; i < n; i++) {
 
 		cout << cake[i] <<' ';
