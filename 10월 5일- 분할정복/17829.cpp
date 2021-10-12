@@ -1,52 +1,43 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
-
-
-
-
-
-//두번째로 크지 않은 수는 0으로
 
 
 //conquer
 int findSecondLargest(int row, int col , vector <vector<int>> matrix) { //2x2공간에서 두번째로 큰 수를 반환해주는 함수
 	
-	
-	int first =INT_MIN, second= INT_MIN;
+	vector<int> arr;
 	for (int i = row; i < row + 2; i++) {
 
 		for (int j = col; j < col + 2; j++) {
 
-			if (matrix[i][j] >= first) {
-				second = first;
-				first = matrix[i][j];
-			}
-
-			else if (matrix[i][j] >= second && matrix[i][j] != first)
-			{
-				second = matrix[i][j];
-			}
-		}
-		
+			arr.push_back(matrix[i][j]);
+		}	
 	}
 
-	return  second;
+	sort(arr.begin(), arr.end()); 
+	return  arr[2];//두번째로 큰 수 반환
 }
 
+int ans;
 //divide
-int divide(int size , vector<vector<int>> matrix) { // size: matrix한변의 길이
-
+void divide(int size , vector<vector<int>> matrix) { // size: matrix한변의 길이
+	
 
 	if (size == 2)  //기저조건 
-		return findSecondLargest(0, 0, matrix);
+	{   
+		ans =findSecondLargest(0, 0, matrix);
+		return;
+	}
+	
 	
 
 	int sub_size = size / 2;
 	vector<vector<int>> part(sub_size, vector<int>(sub_size, 0));//부분 행렬
 
-	//2 X 2 정사각형으로 나눈다.
+	//Divide : 2 X 2 사각형으로 쪼갤수있는데까지 쪼개기
 	
 	for (int i = 0; i < sub_size; i ++) // 2x2 사각형의 시작부분 인덱스 (왼쪽 위)
 	{
@@ -68,7 +59,6 @@ int divide(int size , vector<vector<int>> matrix) { // size: matrix한변의 길
 	}
 	cout << '\n';
 	*/
-	
 	
 	divide(sub_size, part); //2x2 사각형에서 두번째로 큰 수만 골라낸 행렬
 	
@@ -94,6 +84,8 @@ int main() {
 		}
 	}
 
-	cout << divide(n, matrix);
+	divide(n, matrix);
+
+	cout << ans;
 
 }

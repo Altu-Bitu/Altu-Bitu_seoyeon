@@ -18,9 +18,7 @@ void makeEnerge(vector <int> energy,int sum) {
 	//conquer
 	if (energy.size() == 2) {// 첫번째와 마지막 에너지 구슬만 남으면
 		//cout <<sum ;
-		if (sum > max_energy)
-			 max_energy = sum; //에너지 최댓값 갱신
-
+		max_energy = max(sum, max_energy); //에너지 최댓값 갱신
 			return;
 	}
 		
