@@ -3,97 +3,55 @@
 #include <queue>
 
 using namespace std;
+const int SIZE = 1e5; //(0 ≤ N ≤ 100,000)
 
-#define MAX 200001
-
-int dp[MAX] = { 0, }; // 방문체크 + 이동횟수 저장
-
-// n <= 2k 일 경우에는 거리를 가깝게 하기 위해 우선 2*n 이동.
-// 아니라면 x-1,x+1,2x 를 모두 큐에 넣음. 
-
-//BFS : 너비 우선 탐색 
 int bfs(int n, int k) {
+    vector<int> check(SIZE + 1, 0);
+    queue<int> q; //큐에 좌푯값 저장
+    int ans = 0; //최단 시간
 
-	
+    check[n] = 1; //시작 노드 방문 체크
+    q.push(n); //시작 노드 초기화
+    while (!q.empty()) {
+        int x = q.front(); //현재 탐색하려는 위치
+        q.pop();
 
-	queue <int> q; // 수빈이의 위치 경우의수 저장 큐 
+        if (x == k) { //동생 찾으면 탐색 종료.
+            ans = check[x] - 1; //시작 노드 초기화를 1로 했기 때문에 1을 빼줌
+            break;
+        }
 
+        vector<int> child = { x - 1, x + 1, x * 2 }; //자식노드 -> 순서를 다르게 함에 따라 답이 달라질 수 O
+        for (int i = 0; i < 3; i++) {
+            if (child[i] >= 0 && child[i] <= SIZE && !check[child[i]]) { //범위 내에 있고, 첫 방문이라면
+                check[child[i]] = check[x] + 1;
+               
+                q.push(child[i]);
+            }
+        }
+    }
+    return ans;
+}
 
-	q.push(n);
-	dp[n] = true;
-
-	//전처리
-	
-	//1. n <<< k 인경우
-	while(2 * q.front() <=  k)
-	{
-		
-		int temp = q.front();
-		q.pop();
-		q.push(2 * temp);
-		dp[2 * temp] = dp[temp]+1;
-	}
-
-	//2.  n>k인경우
-	if (n > k)
-		return n - k;// -쪽으로 n-k번 움직이면 됨.
-
-	// 큐에 하나의 원소만 남은채로 시작.
-
-		while (!q.empty()) {
-
-			
-			if (dp[k])
-				return dp[k]-1;
-
-			int current = q.front();
-				q.pop();
-
-				int temp;
-
-				temp = current - 1;
-
-				if (dp[temp] == 0 && temp >=0)
-				{	
-					
-					q.push(temp); cout << temp <<' ';
-					dp[temp] = dp[current] + 1;
-
-				}
-				temp = current + 1;
-				if (dp[temp] == 0 && temp <= MAX-1)
-				{
-					q.push(temp); cout << temp << ' ';
-					dp[temp] = dp[current] + 1;
-
-				}
-				temp = 2 * current ;
-				if (dp[2 * current] == 0 && temp <= MAX - 1)
-				{
-					q.push(temp); cout << temp << ' ';
-					dp[temp] = dp[current] + 1;
-
-				}
-	
-		}
-
-	}
-
-
-
-		
-
+/**
+ * 최단거리(BFS) 역추적
+ * - 기본 문제: 숨바꼭질
+ */
 
 int main() {
 
-	 
-	int n, k; 
+   
+    int n, k;
 
+    //입력
+    cin >> n >> k;
 
-	cin >> n >> k;
-
-	cout << bfs(n, k);
-	
-	
-
+    //연산 및 출력
+    cout << bfs(n, k);
+  
+  
+   
+    return 0;
 }
+
+
