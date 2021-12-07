@@ -41,12 +41,12 @@ int prim(int v, int start, vector<vector<int>>& graph) { // v: 정점 수. start
 
        
         for (int i = 1; i <= v; i++) { //연결된 모든 node확인.
-            if (graph[node][i] != 0) { //자기자신이면 패스 
+           
                 if (!visited[i] && graph[node][i] < dist[i]) { //MST에 포함되지 않았고 더 짧은 간선을 통해 갈 수 있다면)
                     dist[i] = graph[node][i]; // 비용 갱신
                     pq.push({ dist[i], i });
                 }
-            }
+            
         }
     }
     return sum;
