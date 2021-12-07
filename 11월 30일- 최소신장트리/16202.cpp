@@ -12,8 +12,6 @@ MST 구하기 - VER.kruskal
 */
 
 using namespace std;
-typedef tuple<int, int, int> tp; //u->v를 연결하는 가중치 w의 간선을 (w,u,v)로 저장
-
 vector<int> parent;
 
 //Find 연산
@@ -41,38 +39,38 @@ bool unionInput(int x, int y) {
     return true;
 }
 
-//kruskal
-int kruskal(int v, priority_queue<tp, vector<tp>, greater<>>& pq) { // v : 정점 개수.
+//kruskal ver. vector
+int kruskal(int v, vector<pair<int, int>> edges, int start) { // v : 정점 개수. start :몇번째 간선부터 시작하는지
     int cnt = 0, sum = 0;
 
+        for (int i = start; i < edges.size(); i++) {
+            int x = edges[i].first;
+            int y = edges[i].second;
+            int weight = i + 1; //가중치는 항상 idx +1 
 
-    while (cnt < v - 1) {
 
-        if (pq.empty()) // 더이상 간선이 존재하지 않으면
-            return 0; // MST못만듬.
+            if (unionInput(x, y)) { //유니온이 가능하다면 
+                cnt++; //사용한 간선 하나 추가
+                sum += weight; // 전체의 가중치 합 더함.
 
-        int weight = get<0>(pq.top());
-        int x = get<1>(pq.top());
-        int y = get<2>(pq.top());
-        pq.pop();
+            }
 
-        if (unionInput(x, y)) { //유니온이 가능하다면 
-            cnt++; //사용한 간선 하나 추가
-            sum += weight; // 전체의 가중치 합 더함.
+            if (cnt == v - 1) 
+                return sum;
         }
-    }
-    return sum;
+
+    return 0;  //반복문이 모두 끝났는데도 MST를 못만들었다면
 }
 
 int main() {
     int v, e, k, a, b;  // 정점,간선,턴의수, a->b 
 
-    
+
     vector<pair<int, int>> edges; // 연결정보 저장.
 
     //입력
     cin >> v >> e >> k;
- 
+
 
     for (int i = 0; i < e; i++) {
         cin >> a >> b;
@@ -81,13 +79,7 @@ int main() {
 
     //연산 & 출력
     for (int i = 0; i < k; i++) {
-        priority_queue<tp, vector<tp>, greater<>> pq;
         parent.assign(v + 1, -1); //parent 정보 초기화
-
-        for (int j = i; j < e; j++) {
-            pq.push({ j + 1, edges[j].first, edges[j].second });
-            // cout << j + 1<<' ' << edges[j].first <<' '<< edges[j].second<<'|';
-        }
-        cout << kruskal(v, pq) << ' ';
+        cout << kruskal(v, edges, i) << ' ';
     }
 }
