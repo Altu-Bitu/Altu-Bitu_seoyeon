@@ -44,16 +44,16 @@ bool unionInput(int x, int y) {
 }
 
 //kruskal
-int kruskal(int v, priority_queue<tp, vector<tp>, greater<>>& pq) { // v : 정점 개수.
-    int cnt = 0, sum = 0;
-
+long long kruskal(int v, priority_queue<tp, vector<tp>, greater<>>& pq) { // v : 정점 개수.
+    int cnt = 0;
+    long long sum = 0;
    
     while (cnt < v - 1) { 
 
         if (pq.empty()) // 더이상 간선이 존재하지 않으면
             return 0; // MST못만듬.
 
-        int weight = get<0>(pq.top());
+        int  weight = get<0>(pq.top());
         int x = get<1>(pq.top());
         int y = get<2>(pq.top());
         pq.pop();
@@ -67,7 +67,12 @@ int kruskal(int v, priority_queue<tp, vector<tp>, greater<>>& pq) { // v : 정�
 }
 
 int main() {
-    int v, e, a, b, c,sum=0;
+
+    ios_base :: sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+
+    int v, e, a, b, c;
+    long long sum =0 ;
     priority_queue<tp, vector<tp>, greater<>> pq; 
 
     //입력
@@ -79,10 +84,10 @@ int main() {
         pq.push({ c, a, b });
     }
 
-    int MSTcost = kruskal(v, pq);
+    long long mst_cost = kruskal(v, pq);
    
-    if (MSTcost)
-        cout << sum- MSTcost;
+    if (mst_cost)
+        cout << sum- mst_cost;
     else
         cout << -1;
 
